@@ -31,12 +31,12 @@ Module({
   var buttons = [{
     urlButton: {
         displayText: 'Github',
-        url: 'https://github.com/souravkl11/raganork'
+        url: 'https://github.com/SUHAID-SER/SUHAIDBOT-MD'
     }
 }, {
     callButton: {
         displayText: 'Contact Owner',
-        phoneNumber: BOT_INFO.split(";")[2]
+        phoneNumber: BOT_INFO.split()[2]
     }
 }, {
     quickReplyButton: {
@@ -57,7 +57,7 @@ Module({
 var menu = `╭═══〘 ${BOT_INFO.split(";")[0]} 〙═══⊷❍
 ┃✩╭──────────────
 ┃✩│
-┃✩│ Owner : ${BOT_INFO.split(";")[1]}
+┃✩│ Owner : SUHAID-SER
 ┃✩│ User : ${message.senderName}
 ┃✩│ Mode : ${MODE}
 ┃✩│ Server : ${config.HEROKU_APP_NAME}
@@ -68,7 +68,7 @@ var menu = `╭═══〘 ${BOT_INFO.split(";")[0]} 〙═══⊷❍
 ┃✩│
 ┃✩│  ▎▍▌▌▉▏▎▌▉▐▏▌▎
 ┃✩│  ▎▍▌▌▉▏▎▌▉▐▏▌▎
-┃✩│   ${BOT_INFO.split(";")[0]}
+┃✩│    AFIYABOT-MD
 ┃✩│ 
 ┃✩╰───────────────
 ╰═════════════════⊷
@@ -133,7 +133,7 @@ if (button) {
     const end = new Date().getTime()
     await message.sendReply(FancyRandom('Pong!\n ```' + (end - start) + '``` *ms*')) 
   }
-  if (button.includes(myid)&&button.startsWith("support")) return await message.sendReply("https://chat.whatsapp.com/Dt3C4wrQmt0GG6io1IBIHb")
+  if (button.includes(myid)&&button.startsWith("support")) return await message.sendReply("https://chat.whatsapp.com/Dt3CJSJSJDHZU")
 } 
 }))
 Module({
