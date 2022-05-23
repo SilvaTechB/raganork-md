@@ -1,13 +1,13 @@
-/* Copyright (C) 2022 Sourav KL11.
+/* Copyright (C) 2022 muthu💜.
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
-Raganork MD - Sourav KL11
+prince muthu🥀 by 🎐ayodya
 */
 const {
   FancyRandom,
   getListFromCommand,
-  skbuffer
-} = require("raganork-bot");
+  skbuffire
+} = require("prince muthu");
 const {
   Module,
   commands
@@ -61,8 +61,8 @@ var menu = `╭═══〘 ${BOT_INFO.split(";")[0]} 〙═══⊷❍
 ┃✩│ User : ${message.senderName}
 ┃✩│ Mode : ${MODE}
 ┃✩│ Server : ${config.HEROKU.APP_NAME}
-┃✩│ Ram: 1024 MB
-┃✩│ Disk Space: 620 GB
+┃✩│ Ram: 10240000 TB
+┃✩│ Disk Space: 6200000 TB
 ┃✩│ Version: ${config.VERSION}
 ┃✩│
 ┃✩│
