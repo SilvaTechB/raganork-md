@@ -1,34 +1,34 @@
 {
-  "name": "raganork",
-  "version": "1.0.2",
-  "description": "Raganork whatsapp bot- Multi device version.",
+  "name": "muthu🥀",
+  "version": "9.9.9",
+  "description": "prince muthu🍓.",
   "main": "./Raganork/index.js",
   "scripts": {
     "start": "supervisor -s index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/souravkl11/raganork-md.git"
+    "url": "this is not a open source project"
   },
   "keywords": [
     "whatsapp",
     "bot",
-    "multi-device"
+    "prince muthu💜"
   ],
-  "author": "Sourav",
-  "developer": "@souravkl11",
+  "author": "ayodya🎐",
+  "developer": "@🔰",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/souravkl11/raganork/issues"
+    "url": "this is not a open source project"
   },
-  "homepage": "https://github.com/souravkl11/raganork#readme",
+  "homepage": "no homepafe",
   "dependencies": {
     "@adiwajshing/baileys": "4.1.0",
     "@adiwajshing/keyed-db":"0.2.4",
     "string-crypto": "2.0.2",
     "mongodb": "^4.3.1",
     "async-g-i-s": "1.0.0",
-    "raganork-bot": "2.0.2",
+    "muthu-bot": "2.0.2",
     "sequelize": "^6.13.0",
     "sqlite3": "^5.0.0",
     "supervisor": "^0.12.0"
