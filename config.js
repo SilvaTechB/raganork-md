@@ -17,7 +17,7 @@ module.exports = {
     SESSION: process.env.SESSION || '',
     RG: process.env.RG || '919074309534-1632403322@g.us',
     PASSWORD: process.env.PASSWORD || '',
-    BOT_INFO: process.env.BOT_INFO || '𝐀𝐫𝐜𝐭𝐢𝐱;𝐀𝐫𝐜𝐞𝐮𝐬;919337956084;https://telegra.ph/file/b9faf3acf140ccc725117.jpg;https://chat.whatsapp.com/Kb6msWfU8fP25KcG3M4Xtw',
+    BOT_INFO: process.env.BOT_INFO || 'Arctix;Arceus;919337956084;https://telegra.ph/file/b9faf3acf140ccc725117.jpg;https://chat.whatsapp.com/Kb6msWfU8fP25KcG3M4Xtw',
     RBG_KEY: process.env.RBG_KEY || '',
     ALLOWED: process.env.ALLOWED || '91,94,212,44',
     CHATBOT: process.env.CHATBOT || 'off',
