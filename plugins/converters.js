@@ -41,12 +41,11 @@ Module({
         android: "https://github.com/souravkl11/Raganork-md/",
         ios: "https://github.com/souravkl11/Raganork-md/"
     }
-    if (message.reply_message.video === false && message.reply_message.image) {
-        await message.sendReply(fs.readFileSync(await addExif(await sticker(savedFile),exif)), 'sticker')
-        return;
+    if (message.reply_message.image === true) {
+        return await message.sendReply(fs.readFileSync(await addExif(await sticker(savedFile),exif)), 'sticker')
+     } else {
+        return await message.sendReply(fs.readFileSync(await sticker(savedFile)), 'sticker')
     }
-        await message.sendReply(fs.readFileSync(await addExif(await sticker(savedFile),exif)), 'sticker')
-        return;
 }));
 Module({
     pattern: 'mp3$',
@@ -69,7 +68,8 @@ Module({
 }));
 Module({
     pattern: 'bass ?(.*)',
-    fromMe: Lang.BASS_DESC
+    fromMe: w,
+    desc: Lang.BASS_DESC
 }, (async (message, match) => {
     if (message.reply_message === false) return await message.sendReply(Lang.BASS_NEED_REPLY)
     var savedFile = await saveMessage(message.reply_message);
