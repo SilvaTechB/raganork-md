@@ -7,7 +7,7 @@ const {
   FancyRandom,
   getListFromCommand,
   skbuffer
-} = require("raganork-bot");
+} = require("𝛥𝑆𝛨𝛪𝐷 𝑆𝛯𝑅");
 const {
   Module,
   commands
@@ -30,13 +30,13 @@ Module({
   var myid = message.client.user.id.split(":")[0]
   var buttons = [{
     urlButton: {
-        displayText: 'Github',
-        url: 'https://github.com/souravkl11/raganork'
+        displayText: 'instagram',
+        url: 'https://instagram.com/itz__me__ashid?igshid=YmMyMTA2M2Y=#'
     }
 }, {
   urlButton: {
     displayText: 'Contact Owner',
-    url: 'https://wa.me/'+BOT_INFO.split(";")[2]+'?text=Hey+bro'
+    url: 'https://wa.me/919778147249'
     }
 }, {
     quickReplyButton: {
