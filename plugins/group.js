@@ -97,9 +97,7 @@ Module({
     fromMe: true,
     desc: Lang.LEAVE_DESC
 }, (async (message, match) => {
-    await message.client.sendMessage(message.jid, {
-        text: Lang.LEAVING
-    })
+    
     return await message.client.groupLeave(message.jid);
 }))
 Module({
@@ -173,6 +171,36 @@ Module({
     await message.sendMessage(Lang.REVOKED)
 }))
 Module({
+    pattern: 'common ?(.*)',
+    fromMe: true,
+    desc: "Get common participants in two groups"
+}, (async (message, match) => {
+var co = match[1].split(",")
+var g1 = (await message.client.groupMetadata(co[0])).participants
+var g2 = (await message.client.groupMetadata(co[1])).participants 
+var common = g1.filter(({ value: jid1 }) => g2.some(({ value: jid2 }) => jid2 === jid1));
+var msg = "*Common participants*\n_count: "+common.length+"_ \n"
+common.map(async s => {
+msg += "```"+s.id.split("@")[0]+"```\n"
+})    
+return await message.sendReply(msg)
+}));
+Module({
+    pattern: 'diff ?(.*)',
+    fromMe: true,
+    desc: "Get difference of participants in two groups"
+}, (async (message, match) => {
+var co = match[1].split(",")
+var g1 = (await message.client.groupMetadata(co[0])).participants
+var g2 = (await message.client.groupMetadata(co[1])).participants 
+var common = g1.filter(({ value: jid1 }) => !g2.some(({ value: jid2 }) => jid2 === jid1));
+var msg = "*Difference of participants*\n_count: "+common.length+"_ \n"
+common.map(async s => {
+msg += "```"+s.id.split("@")[0]+"``` \n"
+})    
+return await message.sendReply(msg)
+}));
+Module({
     pattern: 'tagall',
     fromMe: true,
     desc: Lang.TAGALL_DESC
@@ -201,6 +229,14 @@ Module({
     await message.client.updateBlockStatus(user, "block");
 }));
 Module({
+    pattern: 'join ?(.*)',
+    fromMe: true
+}, (async (message, match) => {
+    var rgx = /^(https?:\/\/)?chat\.whatsapp\.com\/(?:invite\/)?([a-zA-Z0-9_-]{22})$/
+    if (!match[1] || !rgx.test(match[1])) return await message.sendReply("*Need group link*");
+    await message.client.groupAcceptInvite(match[1].split("/")[3])
+}));
+Module({
     pattern: 'unblock ?(.*)',
     fromMe: true
 }, (async (message, match) => {
@@ -215,7 +251,7 @@ Module({
     desc: "Change/Get profile picture with replied message"
 }, (async (message, match) => {
     if (message.reply_message && message.reply_message.image) {
-    var image = await saveFile(message.reply_message)
+    var image = await saveMessage(message.reply_message)
     await message.client.updateProfilePicture(message.client.user.id.split(":")[0]+"@s.whatsapp.net",{url: image});
     return await message.sendReply("*Updated profile pic ✅*")
 }

@@ -59,9 +59,9 @@ Module({
   var SongData = []
   for (var i in sr){
     SongData.push({
-      title: sr[0].title,
-      description: sr[0].artist,
-      rowId: "song;" + sr[0].id + ';' + myid
+      title: sr[i].title,
+      description: sr[i].artist,
+      rowId: "song;" + sr[i].id + ';' + myid
   })
   }
   const sections = [{
