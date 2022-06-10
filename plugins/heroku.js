@@ -7,6 +7,9 @@ const {
     Module
 } = require('../main');
 const {
+    skbuffer
+} = require('raganork-bot');
+const {
     chatBot
 } = require('./misc/misc');
 const Config = require('../config');
@@ -41,7 +44,8 @@ let baseURI = '/apps/' + Config.HEROKU.APP_NAME;
 Module({
     pattern: 'restart$',
     fromMe: true,
-    dontAddCommandList: true
+    dontAddCommandList: true,
+    use: 'owner'
 }, (async (message, match) => {
 
     await message.sendReply(Lang.RESTART_MSG)
@@ -54,7 +58,8 @@ Module({
 Module({
     pattern: 'shutdown$',
     fromMe: true,
-    dontAddCommandList: true
+    dontAddCommandList: true,
+    use: 'owner'
 }, (async (message, match) => {
 
     await heroku.get(baseURI + '/formation').then(async (formation) => {
@@ -73,7 +78,8 @@ Module({
 Module({
     pattern: 'dyno$',
     fromMe: true,
-    dontAddCommandList: true
+    dontAddCommandList: true,
+    use: 'owner'
 }, (async (message, match) => {
 
     heroku.get('/account').then(async (account) => {
@@ -92,10 +98,10 @@ Module({
             percentage = Math.round((quota_used / total_quota) * 100);
             remaining = total_quota - quota_used;
             await message.sendReply(
-                Lang.DYNO_TOTAL + ": ```{}```\n\n".format(secondsToHms(total_quota)) +
-                Lang.DYNO_USED + ": ```{}```\n".format(secondsToHms(quota_used)) +
-                Lang.PERCENTAGE + ": ```{}```\n\n".format(percentage) +
-                Lang.DYNO_LEFT + ": ```{}```\n".format(secondsToHms(remaining)))
+                "TOTAL: ```{}```\n\n".format(secondsToHms(total_quota)) +
+                "USED: ```{}```\n".format(secondsToHms(quota_used)) +
+                "PERCENT: ```{}```\n\n".format(percentage) +
+                "REMAINING: ```{}```\n".format(secondsToHms(remaining)))
 
         }).catch(async (err) => {
             await message.sendMessage(error.message)
@@ -106,7 +112,8 @@ Module({
 Module({
     pattern: 'setvar ?(.*)',
     fromMe: true,
-    desc: Lang.SETVAR_DESC
+    desc: Lang.SETVAR_DESC,
+    use: 'owner'
 }, (async (message, match) => {
 
     if (match[1] === '' || !match[1].includes(":")) return await message.sendReply(Lang.KEY_VAL_MISSING)
@@ -128,7 +135,8 @@ Module({
 Module({
     pattern: 'delvar ?(.*)',
     fromMe: true,
-    desc: Lang.DELVAR_DESC
+    desc: Lang.DELVAR_DESC,
+    use: 'owner'
 }, (async (message, match) => {
 
     if (match[1] === '') return await message.sendReply(Lang.NOT_FOUND)
@@ -153,7 +161,8 @@ Module({
 Module({
     pattern: 'getvar ?(.*)',
     fromMe: true,
-    desc: Lang.GETVAR_DESC
+    desc: Lang.GETVAR_DESC,
+    use: 'owner'
 }, (async (message, match) => {
 
     if (match[1] === '') return await message.sendReply(Lang.NOT_FOUND)
@@ -169,7 +178,8 @@ Module({
 Module({
         pattern: "allvar",
         fromMe: true,
-        desc: Lang.ALLVAR_DESC
+        desc: Lang.ALLVAR_DESC,
+        use: 'owner'
     },
     async (message, match) => {
         let msg = Lang.ALL_VARS + "\n\n\n```"
@@ -187,19 +197,93 @@ Module({
     }
 );
 Module({
-    pattern: 'chatbot ?(.*)',
+    pattern: 'mode',
+    fromMe: true,
+    desc: "Switches mode",
+    use: 'config'
+}, (async (message, match) => {
+    var buttons = [{
+        urlButton: {
+            displayText: 'WIKI',
+            url: 'https://github.com/souravkl11/raganork-md/wiki'
+        }
+    },
+    {
+        quickReplyButton: {
+            displayText: 'PUBLIC',
+            id: 'public '+message.myjid
+        }
+    }, {
+        quickReplyButton: {
+            displayText: 'PRIVATE',
+            id: 'private '+message.myjid
+        }  
+    }]
+    await message.sendImageTemplate(await skbuffer("https://mma.prnewswire.com/media/701943/Mode_Logo.jpg"),"Working mode configuration","Current mode: "+Config.MODE,buttons);
+    }));
+Module({
+    pattern: 'chatbot',
     fromMe: true,
     desc: "Activates chatbot",
-    usage: '.chatbot on / off'
+    use: 'config'
 }, (async (message, match) => {
-    var toggle = match[1] == 'off' ? 'off' : 'on'
-    await heroku.patch(baseURI + '/config-vars', {
-        body: {
-            ['CHATBOT']: toggle
+    var buttons = [{
+        urlButton: {
+            displayText: 'WIKI',
+            url: 'https://github.com/souravkl11/raganork-md/wiki'
         }
-    });
-    if (toggle === 'on') await message.sendMessage("*Chatbot activated ✅*")
-    if (toggle === 'off') await message.sendMessage("*Chatbot deactivated ✔*")
+    },
+    {
+        quickReplyButton: {
+            displayText: 'ENABLE',
+            id: 'cbe '+message.myjid
+        }
+    }, {
+        quickReplyButton: {
+            displayText: 'DISABLE',
+            id: 'cbd '+message.myjid
+        }  
+    }]
+    await message.sendImageTemplate(await skbuffer("https://kriyatec.com/wp-content/uploads/2020/05/chatbot2.jpeg"),"🤖 Chatbot configuration","Current status: "+Config.CHATBOT,buttons);
+    }));
+Module({
+    on: 'button',
+    fromMe: true
+}, (async (message, match) => {
+    if (message.button && message.button.startsWith("public") && message.button.includes(message.myjid)) {
+        await heroku.patch(baseURI + '/config-vars', {
+            body: {
+                ['MODE']: 'public'
+            }
+        });
+        await message.sendReply("*Switched mode to public ✅*")
+        return await message.sendReply("*Restarting*")
+    }
+    if (message.button && message.button.startsWith("private") && message.button.includes(message.myjid)) {
+        await heroku.patch(baseURI + '/config-vars', {
+            body: {
+                ['MODE']: 'private'
+            }
+        });
+        await message.sendReply("*Switched mode to private ✅*")
+        return await message.sendReply("*Restarting*")
+    }
+    if (message.button && message.button.startsWith("cbe") && message.button.includes(message.myjid)) {
+        await heroku.patch(baseURI + '/config-vars', {
+            body: {
+                ['CHATBOT']: 'on'
+            }
+        });
+      return await message.sendReply("*Chatbot activated ✅*")
+    }
+    if (message.button && message.button.startsWith("cbd") && message.button.includes(message.myjid)) {
+        await heroku.patch(baseURI + '/config-vars', {
+            body: {
+                ['CHATBOT']: 'off'
+            }
+        });
+      return await message.sendReply("*Chatbot deactivated ❗*")
+    }
 }));
 Module({
     on: 'text',
