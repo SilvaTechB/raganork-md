@@ -59,7 +59,7 @@ Module({
     use: 'group'
 }, (async (message, match) => {
     if (!message.jid.endsWith('@g.us')) return await message.sendMessage(Lang.GROUP_COMMAND)
-    var init = match[1]
+    var init = match[1] || message.reply_message.jid.split("@")[0]
     if (!init) return await message.sendReply(Lang.NEED_USER)
     var admin = await isAdmin(message);
     if (!admin) return await message.sendReply(Lang.NOT_ADMIN)
@@ -72,11 +72,7 @@ Module({
         msg += '@' + number + '\n'
         jids.push(number + '@s.whatsapp.net');
     });
-    await message.client.groupParticipantsUpdate(message.jid, jids, "add")
-    await message.client.sendMessage(message.jid, {
-        text: msg + ' ' + Lang.ADDED,
-        mentions: jids
-    })
+    await message.client.groupAdd(init,message)
 }))
 Module({
     pattern: 'promote',
@@ -183,18 +179,44 @@ Module({
     pattern: 'common ?(.*)',
     fromMe: true,
     use: 'group',
-    desc: "Get common participants in two groups"
+    desc: "Get common participants in two groups, and kick using .common kick jid"
 }, (async (message, match) => {
-if (!match[1]) return await message.sendReply("*Need jids*\n*.common jid1,jid2*")
-var co = match[1].split(",")
-var g1 = (await message.client.groupMetadata(co[0])).participants
-var g2 = (await message.client.groupMetadata(co[1])).participants 
-var common = g1.filter(({ id: id1 }) => g2.some(({ id: id2 }) => id2 === id1));
-var msg = "*Common participants*\n_count: "+common.length+"_ \n"
+if (!match[1]) return await message.sendReply("*Need jids*\n*.common jid1,jid2*\n _OR_ \n*.common kick group_jid*")
+if (match[1].includes("kick")) {
+var co = match[1].split(" ")[1]
+var g1 = (await message.client.groupMetadata(co))
+var g2 = (await message.client.groupMetadata(message.jid)) 
+var common = g1.participants.filter(({ id: id1 }) => g2.participants.some(({ id: id2 }) => id2 === id1));
+var jids = [];
+var msg = `Kicking common participants of:* ${g1.subject} & ${g2.subject} \n_count: ${common.length} \n`
 common.map(async s => {
-msg += "```"+s.id.split("@")[0]+"```\n"
+msg += "```@"+s.id.split("@")[0]+"```\n"
+jids.push(s.id.split("@")[0]+"@s.whatsapp.net")
 })    
-return await message.sendReply(msg)
+await message.client.sendMessage(message.jid, {
+        text: msg,
+        mentions: jids
+    })
+for (let user of jids){
+await new Promise((r) => setTimeout(r, 1000))
+await message.client.groupParticipantsUpdate(message.jid, [user], "remove")
+}
+return;
+}
+var co = match[1].split(",")
+var g1 = (await message.client.groupMetadata(co[0]))
+var g2 = (await message.client.groupMetadata(co[1])) 
+var common = g1.participants.filter(({ id: id1 }) => g2.participants.some(({ id: id2 }) => id2 === id1));
+var msg = `*Common participants of:* ${g1.subject} & ${g2.subject}\n_count: ${common.length}_ \n`
+var jids = [];
+common.map(async s => {
+msg += "```@"+s.id.split("@")[0]+"```\n"
+jids.push(s.id.split("@")[0]+"@s.whatsapp.net")
+})    
+await message.client.sendMessage(message.jid, {
+        text: msg,
+        mentions: jids
+    })
 }));
 Module({
     pattern: 'diff ?(.*)',
@@ -266,15 +288,31 @@ Module({
     pattern: 'pp ?(.*)',
     fromMe: true,
     use: 'owner',
-    desc: "Change/Get profile picture with replied message"
+    desc: "Change/Get profile picture (full screen supported) with replied message"
 }, (async (message, match) => {
     if (message.reply_message && message.reply_message.image) {
-    var image = await saveMessage(message.reply_message)
+    var image = await message.reply_message.download()
     await message.client.updateProfilePicture(message.client.user.id.split(":")[0]+"@s.whatsapp.net",{url: image});
     return await message.sendReply("*Updated profile pic ✅*")
 }
 if (message.reply_message && !message.reply_message.image) {
    try { var image = await message.client.profilePictureUrl(message.reply_message.jid,'image') } catch {return await message.sendReply("Profile pic not found!")}
+   return await message.sendReply({url:image},"image")
+}
+}));
+Module({
+    pattern: 'gpp ?(.*)',
+    fromMe: true,
+    use: 'owner',
+    desc: "Change/Get group icon (full screen supported) with replied message"
+}, (async (message, match) => {
+    if (message.reply_message && message.reply_message.image) {
+    var image = await message.reply_message.download()
+    await message.client.updateProfilePicture(message.jid,{url: image});
+    return await message.sendReply("*Updated profile pic ✅*")
+}
+if (!message.reply_message.image) {
+   try { var image = await message.client.profilePictureUrl(message.jid,'image') } catch {return await message.sendReply("Profile pic not found!")}
    return await message.sendReply({url:image},"image")
 }
 }));
