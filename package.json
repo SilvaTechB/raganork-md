@@ -1,8 +1,8 @@
 {
-  "name": "raganork",
+  "name": "abhi ser",
   "version": "2.0.0",
-  "description": "Raganork whatsapp bot- Multi device version.",
-  "main": "./Raganork/index.js",
+  "description": "abhiser whatsapp bot- Multi device version.",
+  "main": "./abhiser/index.js",
   "scripts": {
     "start": "supervisor -s index.js"
   },
