@@ -25,10 +25,10 @@ if (m.reply_message.video) ms = 'Video Message'
 if (m.reply_message.image) ms = 'Image Message'
 if (m.reply_message.data.quotedMessage.listMessage) ms = 'List message'
 var reason = mat[1] ? mat[1].replace(mentionjid(user),"") : ms
-var msg = `╭──〔 *⚠️ Warning ⚠️* 〕
-├ *User:* ${mentionjid(user)}
-├ *Reason:* ${reason}
-├ *Remaining:* ${warn} of ${WARN}
+var msg = `╭──〔 *⚠️ تحذير ⚠️* 〕
+├ *اسم المستخدم:* ${mentionjid(user)}
+├ *رساله الابلاغ:* ${reason}
+├ *متبقي مخالفات:* ${warn} of ${WARN}
 ╰──────────────`
 if (warn !== 0) {
     return await m.client.sendMessage(m.jid, { text: Fancy(msg,29) ,mentions:[user]},{ quoted: m.data })
