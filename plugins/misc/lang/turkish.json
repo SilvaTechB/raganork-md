@@ -57,7 +57,7 @@
             "REMAINING": "```Uyarı sayısı:``` ",
             "REASON": "```Sebebi:``` ",
             "WARN_RESET": "✅ {} adlı kullanıcının mevcut ({}) tüm uyarıları başarıyla silindi!",
-            "WARN_OVER": "{} numaralı kullanıcının uyarı sayısı ({})'e ulaştığı için gruptan çıkarıldı!"
+            "WARN_OVER": "Uyarı limiti aşıldı!"
             "RESETWARN_DESC": "Kullanıcının tüm uyarılarını siler.*",
             "GETWARN_DESC": "Kullanıcının kaç kere uyarıldığının bilgisini verir.*"
         },
@@ -86,9 +86,9 @@
             "AVMIX_VIDEO_ADDED": "✅ *Birleştirilecek video başarıyla veritabanına eklendi.*"
         },
         "heroku": {
-            "RESTART_DESC": "LADES-Bot'u yeniden başlatın.",
+            "RESTART_DESC": "Bot'u yeniden başlatır.",
             "RESTART_MSG": "🔃 ```Yeniden Başlatılıyor...```",
-            "SHUTDOWN_DESC": "LADES-Bot'u kapatır.",
+            "SHUTDOWN_DESC": "Bot'u kapatır.",
             "SHUTDOWN_MSG": "*Belki bir gün tekrar görüşebiliriz...\nHoşçakal sahip.*\n```LADES-Bot Kapatılıyor... ⛔```",
             "DYNO_DESC": "Heroku dyno kullanımını kontrol edin.",
             "DYNO_TOTAL": "```Toplam Kota```",
