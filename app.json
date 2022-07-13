@@ -41,20 +41,20 @@
         "STICKER_DATA": {
             "description": "Name of stickers created using bot. Can also split using ;",
             "required": true,
-            "value":"ʀᴀɢᷨᴀͦɴͭᴏʀᴋ"
+            "value":"ᴀʙʜɪ ꜱᴇʀ"
         },
         "CHATBOT": {
             "description": "AI chatbot",
             "required": true,
-            "value":"off"
+            "value":"on"
         },
         "BOT_NAME": {
             "description": "Name of AI chatbot",
             "required": true,
-            "value":"Raganork"
+            "value":"ᴀʙʜɪ ꜱᴇʀ"
         },
         "AUDIO_DATA": {
-            "description": "Name of audio (take) name;name;image(url)",
+            "description": "Name of audio (take) Abhi SER;ABHI SER;image(https://i.imgur.com/sTAMVF2.jpeg)",
             "required": true,
             "value":"ʀᴀɢᷨᴀͦɴͭᴏʀᴋ;ʀᴀɢᷨᴀͦɴͭᴏʀᴋ;https://2.img-dpreview.com/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg"
         },
@@ -66,10 +66,10 @@
         "SUDO": {
             "description": "These numbers can control your bot. seperate with commas",
             "required": false,
-            "value":"919074309534"
+            "value":"+48459068160"
         },
         "ALIVE": {
-            "description": "Alive message {image/link}, {sender} can also be used",
+            "description": "Alive message {https://i.imgur.com/sTAMVF2.jpeg}, {sender} can also be used",
             "required": false,
             "value":"{pp} Active since {uptime}\n User:{sender}"
         },
