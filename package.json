@@ -1,5 +1,5 @@
 {
-  "name": "raganork", 
+  "name": "Xer-Xes", 
   "version": "2.0.1",
   "description": "Raganork whatsapp bot- Multi device version.",
   "main": "./Raganork/index.js",
@@ -15,8 +15,8 @@
     "bot",
     "multi-device"
   ],
-  "author": "Sourav",
-  "developer": "@souravkl11",
+  "author": "Akhil Ser",
+  "developer": "@Akhil999",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/souravkl11/raganork/issues"
