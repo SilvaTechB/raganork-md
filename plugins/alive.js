@@ -1,13 +1,13 @@
 /* Copyright (C) 2022 Sourav KL11.
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
-Raganork MD - Sourav KL11
+Alien-bot MD - alien2804
 */
 const {
   FancyRandom,
   getListFromCommand,
   skbuffer
-} = require("raganork-bot");
+} = require("Alien-bot");
 const {
   Module,
   commands
@@ -34,7 +34,7 @@ Module({
   var buttons = [{
     urlButton: {
         displayText: 'Github',
-        url: 'https://github.com/souravkl11/raganork'
+        url: 'https://github.com/alien2804/Alien-bot'
     }
 }, {
   urlButton: {
