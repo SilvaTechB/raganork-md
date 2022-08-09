@@ -1,14 +1,14 @@
 {
-  "name": "raganork-md", 
+  "name": "alien-bot-md", 
   "version": "3.0.0",
-  "description": "Raganork whatsapp bot- Multi device version.",
-  "main": "./Raganork/index.js",
+  "description": "Alien whatsapp bot- Multi device version.",
+  "main": "./Alien/index.js",
   "scripts": {
     "start": "supervisor -s index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/souravkl11/raganork-md.git"
+    "url": "git+https://github.com/alien2804/Alien_bot-md.git"
   },
   "keywords": [
     "whatsapp",
