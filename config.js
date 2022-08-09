@@ -19,7 +19,7 @@ MY QUOTE FOR YOU
 #ubutton\youtube# #url\https://www.youtube.com/channel/UCRIk9I95OZqP07CpQcEHbyw#
 #cbutton\contact owner# #url\https.//wa.me/+2348100236360",
     BLOCK_CHAT: process.env.BLOCK_CHAT || '',
-    ALWAYS_ONLINE: convertToBool(process.env.ALWAYS_ONLINE) || false,
+    ALWAYS_ONLINE: convertToBool(process.env.ALWAYS_ONLINE) || true,
     READ_MESSAGES: convertToBool(process.env.READ_MESSAGES) || false,
     PMB_VAR: convertToBool(process.env.PMB_VAR) || false,
     DIS_PM: convertToBool(process.env.DIS_PM) || false,
