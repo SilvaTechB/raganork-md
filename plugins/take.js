@@ -1,7 +1,7 @@
-/* Copyright (C) 2022 Sourav KL11.
+/* Copyright (C) 2022 ALIEN BOT.
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
-Raganork MD - Sourav KL11
+ALIEN BOT MD - BASHIR
 */
 let {
     saveMessage
@@ -41,10 +41,10 @@ Module({
     use: 'edit',
     desc: 'Changes sticker/audio pack & author name. Title, artist, thumbnail etc.'
 }, (async (m, match) => {
-    if (!m.reply_message.data.quotedMessage) return await m.sendMessage('_Reply to an audio or a sticker_')
+    if (!m.reply_message) return await m.sendMessage('_Reply to an audio or a sticker_')
     var audiomsg = m.reply_message.audio;
     var stickermsg = m.reply_message.sticker;
-    var q = await saveMessage(m.reply_message);
+    var q = await m.reply_message.download();
     if (stickermsg) {
         if (match[1]!=="") {
         var exif = {
@@ -90,7 +90,7 @@ Module({
     desc: 'Converts animated sticker to video'
 }, (async (m, t) => {
     if (m.reply_message.sticker) {
-        var q = await saveMessage(m.reply_message);
+        var q = m.reply_message.download();
         try {
             var result = await webp2mp4(q)
         } catch {
