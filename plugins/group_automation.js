@@ -25,8 +25,11 @@ const {
     Module
 } = require('../main')
 const {
-    ALLOWED
+    ALLOWED,
+    HANDLERS
 } = require('../config');
+var handler = HANDLERS !== 'false'? HANDLERS.split("")[0]:""
+
 function tConvert(time) {
   time = time.toString ().match (/^([01]\d|2[0-3])( )([0-5]\d)(:[0-5]\d)?$/) || [time];
  if (time.length > 1) { 
@@ -147,71 +150,63 @@ if (!msg) return await message.sendReply("_No mutes/unmutes found!_")
 message.sendReply("*Scheduled Mutes/Unmutes*\n\n"+msg)
 });
 Module({
-    pattern: "antifake",
+    pattern: "antifake ?(.*)",
     fromMe: true,
     use: 'group'
 }, async (message, match) => {
 var admin = await isAdmin(message)
-if (!admin) return await message.sendReply("*I'm not admin*");
+if (!admin) return await message.sendReply("_I'm not admin!_");
+if (match[1] === "on"){
+    await setAntifake(message.jid);
+    return await message.sendReply("_Antifake enabled!_")
+}
+if (match[1] === "off"){
+    await delAntifake(message.jid);
+    return await message.sendReply("_Antifake disabled!_")
+}
 var {
-        subject,
-        owner
-    } = await message.client.groupMetadata(message.jid)
-    var myid = message.client.user.id.split(":")[0]
-    owner = owner || myid + "@s.whatsapp.net"
-    const templateButtons = [{
-            index: 1,
-            urlButton: {
-                displayText: 'WIKI',
-                url: 'https://github.com/souravkl11/raganork-md/wiki/Docs'
-            }
-        },
-        {
-            index: 2,
-            quickReplyButton: {
-                displayText: 'ENABLE',
-                id: 'fake_on' + myid
-            }
-        },
-        {
-            index: 3,
-            quickReplyButton: {
-                displayText: 'DISABLE',
-                id: 'fake_off' + myid
-            }
-        },
-        {
-            index: 4,
-            quickReplyButton: {
-                displayText: 'ALLOWED PREFIXES',
-                id: 'fake_get' + myid
-            }
-        },
-    ]
+    subject,
+    owner
+} = await message.client.groupMetadata(message.jid)
+var myid = message.client.user.id.split(":")[0]
+owner = owner || myid + "@s.whatsapp.net"
+const templateButtons = [{
+        index: 1,
+        urlButton: {
+            displayText: 'WIKI',
+            url: 'https://github.com/souravkl11/raganork-md/wiki/Antifake'
+        }
+    },
+    {
+        index: 2,
+        quickReplyButton: {
+            displayText: 'ON',
+            id: handler+'antifake on'
+        }
+    },
+    {
+        index: 3,
+        quickReplyButton: {
+            displayText: 'OFF',
+            id: handler+'antifake off'
+        }
+    },
+    {
+        index: 4,
+        quickReplyButton: {
+            displayText: 'ALLOWED PREFIXES',
+            id: handler+'getvar ALLOWED'
+        }
+    },
+]
 
-    const templateMessage = {
-        text: "*Antifake menu of* " + subject,
-        footer: '',
-        templateButtons: templateButtons
-    }
-    await message.client.sendMessage(message.jid, templateMessage)
-})
-Module({
-    on: "button",
-    fromMe: true
-}, async (message, match) => {
-    if (message.button && message.button.startsWith("fake_on") && message.button.includes(message.client.user.id.split(":")[0])) {
-        await setAntifake(message.jid);
-        return await message.sendMessage("Antifake enabled ✅")
-    }
-    if (message.button && message.button.startsWith("fake_off") && message.button.includes(message.client.user.id.split(":")[0])) {
-        await delAntifake(message.jid);
-        return await message.sendMessage("Antifake disabled ✅")
-    }
-    if (message.button && message.button.startsWith("fake_get") && message.button.includes(message.client.user.id.split(":")[0])) {
-        return await message.sendMessage("Allowed prefixes: " + ALLOWED)
-    }
-})
+const templateMessage = {
+    text: "*Antifake menu of* " + subject,
+    footer: '',
+    templateButtons: templateButtons
+}
+await message.client.sendMessage(message.jid, templateMessage)
+    })
 Module({
     on: "group_update",
     fromMe: false
@@ -221,7 +216,7 @@ Module({
     db.map(data => {
         jids.push(data.jid)
     });
-    if (message.update === 27 && jids.includes(message.jid)) {
+    if (message.update === 'add' && jids.includes(message.jid)) {
         var allowed = ALLOWED.split(",");
         if (isFake(message.participant[0], allowed)) {
             var admin = await isAdmin(message);
