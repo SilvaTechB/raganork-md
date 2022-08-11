@@ -1,4 +1,4 @@
-FROM quay.io/souravkl11/raganork:multidevice
+FROM quay.io/alien2804/Alien-bot:multidevice
 
 RUN git clone https://github.com/alien2804/Alien-bot-md /skl/Alien
 WORKDIR /skl/Alien
