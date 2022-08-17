@@ -33,7 +33,7 @@ Module({
   var myid = message.client.user.id.split(":")[0]
   var buttons = [{
     urlButton: {
-        displayText: 'Github',
+        displayText: 'Githhiijjhhhub',
         url: 'https://github.com/souravkl11/raganork'
     }
 }, {
