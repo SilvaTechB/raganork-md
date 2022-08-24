@@ -51,7 +51,7 @@
         "BOT_NAME": {
             "description": "Name of AI chatbot",
             "required": true,
-            "value":"Raganork"
+            "value":"lmodzbot"
         },
         "AUDIO_DATA": {
             "description": "Name of audio (take) name;name;image(url)",
