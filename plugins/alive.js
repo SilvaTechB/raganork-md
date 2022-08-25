@@ -43,14 +43,10 @@ Module({
     }
 }, {
     quickReplyButton: {
-        displayText: 'All commands',
+        displayText: 'كل الأومر',
         id: 'commands'+myid
     }  
-}, {
-    quickReplyButton: {
-        displayText: 'Support group',
-        id: 'support'+myid
-    }
+}, 
 }]
 var gc=commands.filter(a=>"group"===a.use),lgc=commands.filter(a=>"logo"===a.use),tc=commands.filter(a=>"textmaker"===a.use),oc=commands.filter(a=>"owner"===a.use),dc=commands.filter(a=>"download"===a.use),ec=commands.filter(a=>"edit"===a.use),sc=commands.filter(a=>"search"===a.use),uc=commands.filter(a=>"utility"===a.use),setarr=[...gc,...dc,...tc,...oc,...ec,...sc,...uc]
 var gmsg="",ownmsg="",dlmsg="",utilmsg="",srmsg="",tms="",lms="",edmsg="";
@@ -80,7 +76,7 @@ if (setarr[i].use === 'utility') {
   var menu = `╭═══〘 ${BOT_INFO.split(";")[0]} 〙═══⊷❍
 ┃❉╭──────────────
 ┃❉│
-┃❉│ Owner : ${BOT_INFO.split(";")[1]}
+┃❉│ Owner : ${احمد}
 ┃❉│ User : ${message.senderName}
 ┃❉│ Mode : ${MODE}
 ┃❉│ Server : ${config.HEROKU.APP_NAME}
@@ -97,38 +93,38 @@ if (setarr[i].use === 'utility') {
 ┃❉╰───────────────
 ╰═════════════════⊷
 
-╭════〘 Group 〙════⊷❍
+╭════〘 الأدمن 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ${gmsg}
 ┃❉╰─────────────────
 ╰══════════════════⊷❍
-╭════〘 Download 〙════⊷❍
+╭════〘 تنزيل 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ${dlmsg}
 ┃❉╰─────────────────
 ╰══════════════════⊷❍
-╭════〘 Logo Maker 〙════⊷❍
+╭════〘 عمل لوغو 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ┃❉│ logo
 ${tms}
 ┃❉╰─────────────────
 ╰══════════════════⊷❍
-╭════〘 Owner 〙════⊷❍
+╭════〘 المالك 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ${ownmsg}
 ┃❉╰─────────────────
 ╰══════════════════⊷❍
-╭════〘 Edit 〙════⊷❍
+╭════〘 تعديل 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ${edmsg}
 ┃❉╰─────────────────
 ╰══════════════════⊷❍
-╭════〘 Search 〙════⊷❍
+╭════〘 بحث 〙════⊷❍
 ┃❉╭─────────────────
 ┃❉│ 
 ${srmsg}
