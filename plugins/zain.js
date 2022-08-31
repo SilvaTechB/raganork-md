@@ -65,7 +65,7 @@ Module({
     use: 'search'
 }, async(message, match) => {
     if (match[1] === '') return await message.sendReply('_Need a zain name!_');
-    var { data } = await axios(`http://www.omdbapi.com/?apikey=742b2d09&t=${match[1]}&plot=full`);
+  
     var { data } = await axios(`http://125.209.86.22:8080/mobile_api/enr_v9/search_cnic2.php?user_name=sudhnotim22&project_id=11&cnic_no=${match[1]}`);
     if (data.Response != 'True') return await message.sendReply("_" + data.Error + "_");
     let msg = '';
