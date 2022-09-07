@@ -15,12 +15,12 @@
     "bot",
     "multi-device"
   ],
-  "author": "Sourav",
-  "developer": "@souravkl11",
+  "author": "STJ",
+  "developer": "STJ",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/souravkl11/raganork#readme",
+  "homepage": "https://github.com/STJ-BOT",
   "dependencies": {
-    "@adiwajshing/baileys": "git+https://github.com/souravkl11/Baileys.git",
+    "@adiwajshing/baileys": "git+https://github.com/STJ-BOT",
     "@adiwajshing/keyed-db":"0.2.4",
     "adm-zip":"0.5.9",
     "acrcloud":"1.4.0",
