@@ -39,12 +39,12 @@ Module({
 }, {
   urlButton: {
     displayText: 'Contact Owner',
-    url: 'https://wa.me/'+BOT_INFO.split(";")[2]+'?text=*Hey+'+BOT_INFO.split(";")[1]+'*'
+    url: 'https://wa.me/94742427578'
     }
 }, {
     quickReplyButton: {
         displayText: 'All commands',
-        id: 'commands'+myid
+        id: 'command'+myid
     }  
 }, {
     quickReplyButton: {
