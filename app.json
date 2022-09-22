@@ -66,7 +66,7 @@
         "SUDO": {
             "description": "These numbers can control your bot. seperate with commas",
             "required": false,
-            "value":"919074309534"
+            "value":"918136880986"
         },
         "ALIVE": {
             "description": "Alive message {image/link}, {sender} can also be used",
