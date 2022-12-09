@@ -7,10 +7,13 @@ async function sendButton(buttons,text,footer,message){
     const buttonMessage = {text,footer,buttons,headerType: 1}
     return await message.client.sendMessage(message.jid, buttonMessage)
     };
-    const isVPS = !__dirname.startsWith("/skl");
+    const isVPS = !__dirname.startsWith("/rgnk");
     const {
         Module
     } = require('../main');
+    const {
+        update
+    } = require('./misc/koyeb');
     const pm2 = require('pm2')
     const {
         isAdmin,
@@ -51,7 +54,7 @@ async function sendButton(buttons,text,footer,message){
         return dDisplay + hDisplay + mDisplay + sDisplay;
         }
     let baseURI = '/apps/' + Config.HEROKU.APP_NAME;
-    
+  /*
     Module({
         pattern: 'restart$',
         fromMe: true,
@@ -64,7 +67,7 @@ async function sendButton(buttons,text,footer,message){
             await message.send(error.message)
         });
     }));
-    
+    */
     Module({
         pattern: 'shutdown$',
         fromMe: true,
@@ -73,8 +76,8 @@ async function sendButton(buttons,text,footer,message){
     }, (async (message, match) => {
         if (isVPS){
             return await pm2.stop("Raganork");
-        }
-        await heroku.get(baseURI + '/formation').then(async (formation) => {
+        } else throw "Not supported"
+            /*  await heroku.get(baseURI + '/formation').then(async (formation) => {
             forID = formation[0].id;
             await message.sendReply(Lang.SHUTDOWN_MSG)
             await heroku.patch(baseURI + '/formation/' + forID, {
@@ -84,9 +87,9 @@ async function sendButton(buttons,text,footer,message){
             });
         }).catch(async (err) => {
             await message.send(error.message)
-        });
+        });*/
     }));
-    
+    /*
     Module({
         pattern: 'dyno$',
         fromMe: true,
@@ -120,20 +123,21 @@ async function sendButton(buttons,text,footer,message){
             });
         });
     }));
-    
+    */
     Module({
         pattern: 'setvar ?(.*)',
         fromMe: true,
         desc: Lang.SETVAR_DESC,
         use: 'owner'
     }, (async (message, match) => {
-        if (isVPS){
         match=match[1]
         var m = message;
-    if (!match) return await m.sendReply("_Need params!_\n_Eg: .setvar MODE:public_")
-        try { 
+        if (!match) return await m.sendReply("_Need params!_\n_Eg: .setvar MODE:public_")
         let key = match.split(":")[0]
-        config[key]=match.replace(key+":","").replace(/\n/g, '\\n')
+        let value =match.replace(key+":","").replace(/\n/g, '\\n')
+        config[key] = value
+        if (isVPS){
+        try { 
         var envFile = fs.readFileSync(`./config.env`).toString('utf-8')
         let matches = envFile.split('\n').filter(e=>e.startsWith(key))
         if (matches.length==1){
@@ -151,22 +155,14 @@ async function sendButton(buttons,text,footer,message){
     } catch(e){
             return await m.sendReply("_Are you a VPS user? Check out wiki for more._\n"+e.message);
         }
-        }   
-        if (match[1] === '' || !match[1].includes(":")) return await message.sendReply(Lang.KEY_VAL_MISSING)
-        if ((varKey = match[1].split(':')[0]) && (varValue = match[1].replace(match[1].split(':')[0] + ":", ""))) {
-            await heroku.patch(baseURI + '/config-vars', {
-                body: {
-                    [varKey]: varValue
-                }
-            }).then(async (app) => {
-                await message.sendReply(Lang.SET_SUCCESS.format(varKey, varValue))
-            });
         } else {
-            await message.sendReply(Lang.INVALID)
-        }
+            let set_res = await update(key,value)
+            if (set_res) return await m.sendReply(`_Successfully set ${key} to ${value}, redeploying._`)
+            else throw "Error!"
+        }   
     }));
     
-    
+    /*
     Module({
         pattern: 'delvar ?(.*)',
         fromMe: true,
@@ -193,25 +189,16 @@ async function sendButton(buttons,text,footer,message){
         });
     
     }));
-    Module({
+    */Module({
         pattern: 'getvar ?(.*)',
         fromMe: true,
         desc: Lang.GETVAR_DESC,
         use: 'owner'
     }, (async (message, match) => {
-    
         if (match[1] === '') return await message.sendReply(Lang.NOT_FOUND)
-        if (isVPS) return await message.sendReply(config[match[1].trim()]?.toString() || "Not found")
-        await heroku.get(baseURI + '/config-vars').then(async (vars) => {
-            for (vr in vars) {
-                if (match[1].trim() == vr) return await message.sendReply(vars[vr])
-            }
-            await await message.sendReply(Lang.NOT_FOUND)
-        }).catch(async (error) => {
-            await await message.send(error.message)
-        });
-    }));
-    Module({
+        return await message.sendReply(config[match[1].trim()]?.toString() || "Not found")
+   }));
+    /*Module({
             pattern: "allvar",
             fromMe: true,
             desc: Lang.ALLVAR_DESC,
@@ -234,7 +221,7 @@ async function sendButton(buttons,text,footer,message){
                     await message.send(error.message)
                 })
         }
-    );
+    );*/
     Module({
         pattern: 'chatbot ?(.*)',
         fromMe: true,
@@ -243,24 +230,52 @@ async function sendButton(buttons,text,footer,message){
     }, (async (message, match) => {
         if (match[1]!=="button_on" && match[1]!=="button_off"){
             var buttons = [
-            {buttonId: handler+'chatbot button_on', buttonText: {displayText: 'ON'}, type: 1},
-            {buttonId: handler+'chatbot button_off', buttonText: {displayText: 'OFF'}, type: 1}
-        ]
-        if (isVPS){
-            buttons = [
                 {buttonId: handler+'setvar CHATBOT:on', buttonText: {displayText: 'ON'}, type: 1},
                 {buttonId: handler+'setvar CHATBOT:off', buttonText: {displayText: 'OFF'}, type: 1}
             ]
         }
         return await sendButton(buttons,"*ChatBot control panel*","Chatbot is currently turned "+Config.CHATBOT+" now",message)
-        }
-        await message.sendReply(match[1].endsWith("n")? "*Chatbot activated ✅*" : "*Chatbot de-activated ✅*");
-        await heroku.patch(baseURI + '/config-vars', {
-            body: {CHATBOT: match[1].split("_")[1]}
-        }).catch(async (err) => {
-            await message.sendReply('```'+err.message+'```')
-        });
     }));
+    Module({
+        pattern: 'settings ?(.*)',
+        fromMe: true,
+        desc: "Bot settings. Enable extra options related to WhatsApp visibility.",
+        use: 'owner'
+    }, (async (message, match) => {
+        if (match[1].includes(";")){
+            let key_ = match[1].split(";")
+            var buttons = [
+                {buttonId: handler+`setvar ${key_[0]}:true`, buttonText: {displayText: 'ON'}, type: 1},
+                {buttonId: handler+`setvar ${key_[0]}:false`, buttonText: {displayText: 'OFF'}, type: 1}
+            ]
+            return await sendButton(buttons,`_${key_[1]}_`,`_Current status: ${config[key_[0]]?'enabled':'disabled'}_`,message)
+    
+        }
+            const sections = [
+                {
+                title: "Configure these:",
+                rows: [
+                    {title: "Auto read all messages", rowId: handler+"settings READ_MESSAGES;Auto read all messages"},
+                    {title: "Auto read command messages", rowId: handler+"settings READ_COMMAND;Auto read command messages"},
+                    {title: "Auto read status updates", rowId: handler+"settings AUTO_READ_STATUS;Auto read status updates"},
+                    {title: "Auto reject calls", rowId: handler+"settings REJECT_CALLS;Auto reject calls"},
+                    {title: "Always online", rowId: handler+"settings ALWAYS_ONLINE;Always Online"},
+                    {title: "PM Auto blocker", rowId: handler+"settings PMB_VAR;PM auto blocker"},
+                    {title: "Disable bot in PM", rowId: handler+"settings DIS_PM;Disable public bot use in PM"}
+                ]
+                }
+            ]
+            
+            const listMessage = {
+              text: " ",
+              footer: "_Configure your settings_",
+              title: "_Settings_",
+              buttonText: "view",
+              sections
+            }
+            
+         return await message.client.sendMessage(message.jid, listMessage)
+        }));
     Module({
         pattern: 'mode ?(.*)',
         fromMe: true,
