@@ -189,7 +189,7 @@ Module({
         {buttonId: hnd+'upload '+'https://api.akuari.my.id/downloader/tiktokwithwm?link='+link, buttonText: {displayText: 'With watermark'}, type: 1}
        ]
       const buttonMessage = {
-          text: "_Select video type_",
+          text: "_මෙතනින් එකක් තෝරන්න_",
           footer: '',
           buttons: buttons,
           headerType: 1
