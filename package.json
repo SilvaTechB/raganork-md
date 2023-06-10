@@ -1,9 +1,9 @@
 {
-  "name": "raganork-md",
+  "name": "Mickbot-KM",
   "version": "3.5.0",
-  "description": "Raganork whatsapp bot- Multi device version.",
+  "description": "Mickbot whatsapp bot- Multi device version.",
   "scripts": {
-    "start": "pm2 start . --attach --name Raganork"
+    "start": "pm2 start . --attach --name Mickbot"
   },
   "repository": {
     "type": "git",
