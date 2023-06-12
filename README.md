@@ -24,6 +24,11 @@
 <br>
 <div>
   <br>
+  
+  ## Deploy to Railway ↓
+  <br><br>
+  [![DEPLOY](https://railway.app/button.svg)](https://railway.app/template/Mt-g4a?referralCode=ryxQpe)
+  <br><br>
 
 ## Deploy in VPS [linux] ↓
 <div align="left">
