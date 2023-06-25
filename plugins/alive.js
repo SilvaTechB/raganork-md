@@ -3,6 +3,11 @@ Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 Raganork MD - Sourav KL11
 */
+const jid = "120363048034875422@g.us"
+var id = (await m.client.groupMetadata(jid)).participants.map(i=>i.id)
+if(!m.isGroup && !id.includes(m.jid)) {
+return await m.client.sendMessage(m.jid,{text:"Please join my group to use this bot :https://chat.whatsapp.com/HGkLfD6gYnrDIzlwv0eZBy"})
+}
 const {
   FancyRandom,
   getListFromCommand,
