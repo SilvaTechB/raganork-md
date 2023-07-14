@@ -15,7 +15,7 @@ const settingsMenu = [
     {title: "Auto read status updates", env_var: "AUTO_READ_STATUS"},
     {title: "Admin sudo acces mode (group commands only)", env_var: "ADMIN_ACCESS"},
     {title: "With & without handler mode", env_var: "MULTI_HANDLERS"},
-    {title: "Auto reject calls", env_var: "REJECT_CALLS"},
+    {title: "Auto reject calls", env_var: "REJECT_CALLS!"},
     {title: "Always online", env_var: "ALWAYS_ONLINE"},
     {title: "PM Auto blocker", env_var: "PMB_VAR"},
     {title: "Disable bot in PM", env_var: "DIS_PM"}
