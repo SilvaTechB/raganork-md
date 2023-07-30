@@ -56,10 +56,10 @@
         "BOT_INFO": {
             "description": "Name, image, owner and other details in menu (seperate with comma)",
             "required": true,
-            "value":"Raganork,SKL11,91123456789,https://i.imgur.com/B2YWSLk.jpg"
+            "value":"Raganork,SKL11,91123456789,https://i.imgur.com/E5CoClK.jpeg"
         },
         "AUDIO_DATA": {
-            "description": "Name of audio (take) name;name;image(url)",
+            "description": "Name of audio (take) name;name;image(https://i.imgur.com/E5CoClK.jpeg)",
             "required": true,
             "value":"ʀᴀɢᷨᴀͦɴͭᴏʀᴋ;ʀᴀɢᷨᴀͦɴͭᴏʀᴋ;https://2.img-dpreview.com/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg"
         },
@@ -74,7 +74,7 @@
             "value":"919074309534"
         },
         "ALIVE": {
-            "description": "Alive message {image/link}, {sender} can also be used",
+            "description": "Alive message {https://i.imgur.com/CqGvbXO.jpeg}, {sender} can also be used",
             "required": false,
             "value":"{pp} Active since {uptime}\n User:{sender}"
         },
