@@ -14,12 +14,12 @@
     "bot",
     "multi-device"
   ],
-  "author": "Sourav",
-  "developer": "@souravkl11",
+  "author": "Leon",
+  "developer": "@LEONAMER",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/souravkl11/raganork#readme",
+  "homepage": "https://github.com/Leongamer001/raganork#readme",
   "dependencies": {
-    "@adiwajshing/baileys": "git+https://github.com/souravkl11/Baileys.git",
+    "@adiwajshing/baileys": "git+https://github.com/leongamer001/Baileys.git",
     "@whiskeysockets/baileys": "6.4.0",
     "@adiwajshing/keyed-db": "0.2.4",
     "acrcloud": "1.4.0",
