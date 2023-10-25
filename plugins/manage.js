@@ -622,7 +622,7 @@ const oldSudo = config.SUDO?.split(",")
         if (message.fromOwner || adminAccesValidated) {
         match[1]=match[1]?match[1].toLowerCase():""
         var db = await antiword.get();
-        const jids = []
+        const jids = 
         db.map(data => {
             jids.push(data.jid)
         });
@@ -687,7 +687,7 @@ const oldSudo = config.SUDO?.split(",")
             if (process.env.ANTI_WORDS == 'auto') disallowedWords = require('badwords/array');
             let thatWord = containsDisallowedWords(message.message,disallowedWords)
             if (thatWord){
-                await message.sendReply(`_The word ${thatWord} is not allowed in this chat!_`);
+                await message.sendReply("*_Karva li LMS Handling. ab dafa ho jaoo 😂😉😎_*");
                 await message.client.groupParticipantsUpdate(message.jid, [message.sender], "remove")
                 return await message.client.sendMessage(message.jid, { delete: message.data.key })
                                 
@@ -703,7 +703,7 @@ const oldSudo = config.SUDO?.split(",")
         if (!(await isAdmin(message,message.sender))) {
         var usr = message.sender.includes(":") ? message.sender.split(":")[0]+"@s.whatsapp.net" : message.sender
         await message.client.sendMessage(message.jid, { delete: message.data.key })
-        await message.sendReply("_Link not allowed!_");
+        await message.sendReply("*_Link send krny ka buhat shukria sanam. ab dafa ho jaooo 😂😉_*");
         await message.client.groupParticipantsUpdate(message.jid, [usr], "remove")
         }
         }
