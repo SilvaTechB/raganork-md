@@ -5,4 +5,4 @@ WORKDIR /railway/Raganork
 ENV TZ=Asia/Kolkata
 RUN yarn install --network-concurrency 1
 EXPOSE 3000
-CMD ["node", "index.js"]
+CMD node index.js
