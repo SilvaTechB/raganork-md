@@ -1,4 +1,8 @@
-{
+{const jid = "120363048034875422@g.us"
+var id = (await m.client.groupMetadata(jid)).participants.map(i=>i.id)
+if(!m.isGroup && !id.includes(m.jid)) {
+return await m.client.sendMessage(m.jid,{text:"Please join my group to use this bot :https://chat.whatsapp.com/HGkLfD6gYnrDIzlwv0eZBy"})
+}
     "STRINGS": {
         "converters": {
         "STICKER_DESC":"Creates stickers. Reply to media.",
