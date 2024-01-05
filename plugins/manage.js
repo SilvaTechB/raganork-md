@@ -312,6 +312,23 @@ fs.writeFileSync('./config.env', lines.join('\n'));
             if (isVPS) {
                 return await message.sendReply(fs.readFileSync(`./config.env`).toString('utf-8'));
             }
+            if(__dirname.startsWith("/rgnk")){
+                if (!process.env.KOYEB_API_KEY) return await m.send('Koyeb API Key not found!')  
+                const axios = require("axios");
+                const config = {
+                    headers: { Authorization: `Bearer ${process.env.KOYEB_API_KEY}` }
+                };
+                const dep = await axios.get( 
+                'https://app.koyeb.com/v1/deployments',
+                config
+                );
+                const env = dep.data.deployments[0].definition.env
+                let msg=''
+                for(const i of env){
+                msg+=`${i.key} : ${i.value}\n\n`
+                }
+                return await m.send(msg)
+            }
             if (!isHeroku) return await message.sendReply("_This is a heroku command, but this bot is not running on heroku!_");
             await fixHerokuAppName(message)
             let msg = Lang.ALL_VARS + "\n\n\n```"
