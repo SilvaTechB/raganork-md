@@ -1,5 +1,5 @@
 {
-	"name": "Deploy",
+	"name": "SHERRY",
 	"description": "Wa Bot.",
 	"keywords": [
 		"whatsapp",
@@ -11,7 +11,7 @@
         "HANDLERS": {
             "description": "Prefix of commands. Can be also false",
             "required": true,
-            "value":".,"
+            "value":",+#"
         },
         "ANTILINK_WARN": {
             "description": "Groups for antilink (JIDS)",
@@ -20,7 +20,7 @@
         },
         "READ_MESSAGES": {
             "description": "Bot will read all messages. Can be also false",
-            "required": true,
+            "required": false,
             "value":"false"
         },
         "READ_COMMAND": {
@@ -31,12 +31,12 @@
        "HEROKU_API_KEY": {
             "description": "For updating bot and setting vars remotely",
             "required": true,
-            "value":""
+            "value":"064506bb-1823-4776-9122-db410e41d271"
         },
         "HEROKU_APP_NAME": {
             "description": "Exact name which you gave at the top",
             "required": true,
-            "value":""
+            "value":"sherryragnarok-mf"
         },
         "STICKER_DATA": {
             "description": "Name of stickers created using bot. Can also split using ;",
@@ -46,7 +46,7 @@
         "CHATBOT": {
             "description": "AI chatbot",
             "required": true,
-            "value":"off"
+            "value":"true"
         },
         "BOT_NAME": {
             "description": "Name of AI chatbot",
@@ -66,20 +66,20 @@
         "MODE": {
             "description": "Private or public",
             "required": true,
-            "value":"private"
+            "value":"public"
         },
         "SUDO": {
             "description": "These numbers can control your bot. seperate with commas",
             "required": false,
-            "value":"919074309534"
+            "value":"923493750369"
         },
         "ALIVE": {
             "description": "Alive message {image/link}, {sender} can also be used",
-            "required": false,
+            "required": true,
             "value":"{pp} Active since {uptime}\n User:{sender}"
         },
        "SESSION": {
-            "description": "Your MD session",
+            "description": "Raganork~4c053dec270f2515ef829f2d862c2a45:425431736c7246655a75553d",
             "required": true
              
         }
