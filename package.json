@@ -39,5 +39,10 @@
     "string-crypto": "2.0.2",
     "google-tts-api": "2.0.2",
     "badwords":"1.0.0"
+    "engines": {
+  "node": "10.x",
+  "npm": "6.x"
+}
+
   }
 }
