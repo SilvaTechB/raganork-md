@@ -1,7 +1,5 @@
-FROM node:14-alpine
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "run", "start"]
+RUN git clone https://github.com/souravkl11/raganork-md /railway/Raganork
+WORKDIR /railway/Raganork
+ENV TZ=Asia/Kolkata
+RUN yarn install --network-concurrency 1
+CMD ["node", "index.js"]
