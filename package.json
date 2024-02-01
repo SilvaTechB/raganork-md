@@ -3,7 +3,8 @@
   "version": "4.0.0",
   "description": "Raganork whatsapp bot- Multi device version.",
   "scripts": {
-    "start": "pm2 start . --attach --name Raganork"
+    "start": "pm2 start . --attach --name Raganork",
+    "heroku-postbuild": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -39,10 +40,9 @@
     "string-crypto": "2.0.2",
     "google-tts-api": "2.0.2",
     "badwords":"1.0.0"
-    "engines": {
-  "node": "10.x",
-  "npm": "6.x"
-}
-
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.13.4"
   }
 }
