@@ -42,7 +42,7 @@ function BypassCertificateCheck(){
 if (process.env.NODE_TLS_REJECT_UNAUTHORIZED != 0) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 } 
-}
+} 
 Module({
     pattern: 'insta ?(.*)',
     fromMe: sourav,
