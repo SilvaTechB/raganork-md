@@ -119,7 +119,7 @@ Module(
     },
     async (m, match) => {
       const plugin = match[1];
-      if (!plugin) return await m.send("need plugin");
+      if (!plugin) return await m.send("Need a plugin name");
       await Db.PluginDB.sync();
       var plugins = await Db.PluginDB.findAll({
         where: {
@@ -127,7 +127,7 @@ Module(
         },
       });
       if (plugins.length < 1) {
-        return await m.send("plugin not found");
+        return await m.send("Such plugin isn't installed!");
       }
       var url = plugins[0].dataValues.url;
       try {
@@ -141,9 +141,9 @@ Module(
         require("./" + plugin);
       } catch (e) {
         fs.unlinkSync(__dirname + "/" + plugin + ".js");
-        return await m.send("invalid plugin\n" + e);
+        return await m.send("Invalid plugin\n" + e);
       }
-      await m.send(plugin + " updated.");
+      await m.send("The plugin '"+ plugin + "' has been updated.");
       return;
     }
   );
