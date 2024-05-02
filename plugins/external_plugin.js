@@ -109,3 +109,41 @@ Module({
         fs.unlinkSync('./plugins/' + match[1] + '.js');
        }
 }));
+
+Module(
+    {
+      pattern: "pupdate ?(.*)",
+      fromMe: true,
+      use: "owner",
+      desc: "Update a plugin",
+    },
+    async (m, match) => {
+      const plugin = match[1];
+      if (!plugin) return await m.send("need plugin");
+      await Db.PluginDB.sync();
+      var plugins = await Db.PluginDB.findAll({
+        where: {
+          name: plugin,
+        },
+      });
+      if (plugins.length < 1) {
+        return await m.send("plugin not found");
+      }
+      var url = plugins[0].dataValues.url;
+      try {
+        var response = await axios(url + "?timestamp=" + new Date());
+      } catch {
+        return await m.send("invalid url");
+      }
+      fs.writeFileSync("./plugins/" + plugin + ".js", response.data);
+      delete require.cache[require.resolve("./" + plugin + ".js")];
+      try {
+        require("./" + plugin);
+      } catch (e) {
+        fs.unlinkSync(__dirname + "/" + plugin + ".js");
+        return await m.send("invalid plugin\n" + e);
+      }
+      await m.send(plugin + " updated.");
+      return;
+    }
+  );
